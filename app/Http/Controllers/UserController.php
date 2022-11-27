@@ -16,7 +16,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users=User::with('role')->get();
+        $data=[
+            'users'=>$users
+        ];
+        return view('web.users.index',$data);
     }
 
     /**
@@ -63,7 +67,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user=User::find($id);
+
+        return view('web.users.show',compact($user));
     }
 
     /**

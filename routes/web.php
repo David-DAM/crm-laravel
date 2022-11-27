@@ -31,12 +31,15 @@ Route::get('/register', function () {
 
 Route::post('/register',[UserController::class,'store']);
 
-Route::middleware('auth')->prefix('web')->group(function(){
+Route::middleware('auth')->prefix('/web')->group(function(){
 
-    Route::get('/home', function () {
+    Route::get('home', function () {
         return view('web.home');
     })->name('home');
 
     Route::post('/home',[LoginController::class,'logout']);
+
+    Route::resource('users',UserController::class)
+    ->name('index','web.users.index');
 
 });

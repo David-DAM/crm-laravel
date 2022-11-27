@@ -15,7 +15,6 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->smallInteger('id_role')->default(0);
             $table->string('name');
             $table->string('lastname');
             $table->string('email')->unique();
@@ -24,6 +23,9 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreignId('role')->nullable()->constrained('users_roles')
+            ->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 
