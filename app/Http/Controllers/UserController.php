@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users=User::with('role')->get();
+        $users=User::all();
         $data=[
             'users'=>$users
         ];
@@ -40,7 +40,15 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+
+        $request->validate([
+            'name' => 'required',
+            'lastname' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:5'
+        ]);
+
         $user=new User();
         
         $user->name=$request->name;
@@ -103,6 +111,15 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user=User::find($id);
+
+        $user->delete();
+
+        $data=[
+            'success'=>true,
+            'message'=>'Exito, el usuario se eliminó correctamente',
+        ];
+
+        return redirect()->back()->with($data);
     }
 }

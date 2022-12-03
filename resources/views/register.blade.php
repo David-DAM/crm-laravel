@@ -22,21 +22,41 @@
                 <h5 class="card-title text-center mb-5 fw-light fs-5">Registrarse</h5>
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
+                    @error('email')
+                      <div class="alert alert-danger" role="alert">
+                        <strong>{{$message}}</strong>
+                      </div>
+                    @enderror
                   <div class="form-floating mb-3">
-                    <input type="email value="{{ old('email') }}" class="form-control" name="email" id="floatingInput" placeholder="name@example.com">
                     <label for="floatingInput">Correo</label>
+                    <input type="email" value="{{ old('email') }}" class="form-control" name="email" id="floatingInput" placeholder="name@example.com">
                   </div>
+                  @error('password')
+                      <div class="alert alert-danger" role="alert">
+                        <strong>{{$message}}</strong>
+                      </div>
+                    @enderror
                   <div class="form-floating mb-3">
-                    <input type="password" value="{{ old('password') }}" class="form-control" name="password" id="floatingPassword" placeholder="Password">
                     <label for="floatingPassword">Contraseña</label>
+                    <input type="password" value="{{ old('password') }}" class="form-control" name="password" id="floatingPassword" placeholder="Password">
                   </div>
+                  @error('name')
+                      <div class="alert alert-danger" role="alert">
+                        <strong>{{$message}}</strong>
+                      </div>
+                    @enderror
                   <div class="form-floating mb-3">
-                    <input type="text" value="{{ old('name') }}" class="form-control" name="name" id="floatingInput" placeholder="name@example.com">
                     <label for="floatingInput">Nombre</label>
+                    <input type="text" value="{{ old('name') }}" class="form-control" name="name" id="floatingInput" >
                   </div>
+                  @error('lastname')
+                      <div class="alert alert-danger" role="alert">
+                        <strong>{{$message}}</strong>
+                      </div>
+                    @enderror
                   <div class="form-floating mb-3">
-                    <input type="text" value="{{ old('lastname') }}" class="form-control" name="lastname" id="floatingInput" placeholder="name@example.com">
                     <label for="floatingInput">Apellidos</label>
+                    <input type="text" value="{{ old('lastname') }}" class="form-control" name="lastname" id="floatingInput" >
                   </div>
                   <div class="d-grid">
                     <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">

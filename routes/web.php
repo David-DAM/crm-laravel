@@ -40,6 +40,7 @@ Route::middleware('auth')->prefix('/web')->group(function(){
     Route::post('/home',[LoginController::class,'logout']);
 
     Route::resource('users',UserController::class)
-    ->name('index','web.users.index');
+    ->name('index','web.users.index')
+    ->name('destroy','web.users.destroy');
 
 });
