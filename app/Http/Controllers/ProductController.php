@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +15,16 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users=User::paginate(10);
+        $products=Product::paginate(10);
+
+        $categories=ProductCategory::all();
+
         $data=[
-            'users'=>$users
+            'products'=>$products,
+            'categories'=>$categories
         ];
-        return view('web.users.index',$data);
+
+        return view('web.products.index',$data);
     }
 
     /**
@@ -40,31 +44,34 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
-
+    {
         $request->validate([
-            'name' => 'required',
-            'lastname' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:5'
+            'name'=>'required',
+            'description'=>'required',
+            'price'=>'required',
+            'image'=>'required',
+            'category_id'=>'required',
         ]);
 
-        $user=new User();
+        $values=$request->except(['_token']);
         
-        $user->name=$request->name;
-        $user->lastname=$request->lastname;
-        $user->email=$request->email;
-        $user->password = Hash::make($request->password);
+        $file=$request->file('image');
+        $filename=time().'-'.$file->getClientOriginalName();
 
-        $user->save();
+        $uploadSuccess=$file->move(public_path('images'),$filename);
 
-        //Auth::login($user);
+        $values['image']=$filename;
+        
+        $product=new Product($values);
+
+        $product->save();
+
         $data=[
-            'status'=>'success',
-            'message'=>'Exito, tu usuario se creo correctamente',
+            'success'=>true,
+            'message'=>'Exito, tu producto se creo correctamente',
         ];
-        
-        return redirect()->back()->with($data);//->withInput()
+
+        return redirect()->back()->with($data);
     }
 
     /**
@@ -75,9 +82,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user=User::find($id);
-
-        return view('web.users.show',compact($user));
+        //
     }
 
     /**
@@ -111,15 +116,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user=User::find($id);
-
-        $user->delete();
-
-        $data=[
-            'success'=>true,
-            'message'=>'Exito, el usuario '.$user->fullname.' se eliminó correctamente',
-        ];
-
-        return redirect()->back()->with($data);
+        //
     }
 }

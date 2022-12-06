@@ -13,14 +13,14 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Compras</a>
                 <div class="dropdown-menu" aria-labelledby="dropdownId">
-                    <a class="dropdown-item" href="#">Productos</a>
+                    <a class="dropdown-item" href="{{ route('web.products.index') }}">Productos</a>
                     <a class="dropdown-item" href="#">Pedidos</a>
                 </div>
             </li>
         </ul>
         <form method="POST" action="{{ route('home') }}" class="form-inline my-2 my-lg-0">
             @csrf
-            <button type="submit">Cerrar sesión</button>
+            <button type="submit" class="btn btn-primary">Cerrar sesión</button>
         </form>
     </div>
 </nav>

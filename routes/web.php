@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,5 +43,11 @@ Route::middleware('auth')->prefix('/web')->group(function(){
     Route::resource('users',UserController::class)
     ->name('index','web.users.index')
     ->name('destroy','web.users.destroy');
+
+    Route::resource('products',ProductController::class)
+    ->name('index','web.products.index')
+    ->name('destroy','web.products.destroy')
+    ->name('store','web.products.store')
+    ->name('update','web.products.update');
 
 });
