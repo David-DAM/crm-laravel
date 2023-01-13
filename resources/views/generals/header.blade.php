@@ -14,7 +14,7 @@
                 <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Compras</a>
                 <div class="dropdown-menu" aria-labelledby="dropdownId">
                     <a class="dropdown-item" href="{{ route('web.products.index') }}">Productos</a>
-                    <a class="dropdown-item" href="#">Pedidos</a>
+                    <a class="dropdown-item" href="{{ route('web.orders.index') }}">Pedidos</a>
                 </div>
             </li>
         </ul>

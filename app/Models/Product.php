@@ -10,6 +10,8 @@ class Product extends Model
 {
     use HasFactory,SoftDeletes;
 
+    protected $table="products";
+
     protected $fillable = [
         'name',
         'description',
@@ -17,4 +19,12 @@ class Product extends Model
         'image',
         'category_id'
     ];
+
+    public function shopping_cart(){
+        return $this->belongsToMany(ProductShoppingCart::class,'product_id');
+    }
+
+    public function category(){
+        return $this->belongsTo(ProductCategory::class,'category_id');
+    }
 }

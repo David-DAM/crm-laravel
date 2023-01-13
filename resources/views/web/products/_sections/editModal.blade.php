@@ -9,6 +9,7 @@
         </div>
         <form method="POST" enctype="multipart/form-data" action="{{ route('web.products.update',$product->id) }}">
             @csrf
+            @method('PUT')
             <div class="modal-body">
                 <div class="col-12">
                     <div class="row">
@@ -51,7 +52,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Crear</button>
+                <button type="submit" class="btn btn-primary">Editar</button>
             </div>
         </form>
       </div>

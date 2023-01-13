@@ -48,6 +48,10 @@ class User extends Authenticatable
         return $this->belongsTo(UserRole::class,'role');
     }
 
+    public function order(){
+        return $this->hasMany(Order::class,'id');
+    }
+
     public function getFullnameAttribute(){
         return $this->name.' '.$this->lastname;
     }

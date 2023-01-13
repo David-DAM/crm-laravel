@@ -105,7 +105,37 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $request->validate([
+            'name'=>'required',
+            'description'=>'required',
+            'price'=>'required',
+            'image'=>'sometimes',
+            'category_id'=>'required',
+        ]);
+
+        $values=$request->except(['_token','_method']);
+
+        if ($request->file('image')) {
+            
+            $file=$request->file('image');
+            $filename=time().'-'.$file->getClientOriginalName();
+
+            $uploadSuccess=$file->move(public_path('images'),$filename);
+
+            $values['image']=$filename;
+
+        }
+
+        Product::whereId($id)->update($values);
+
+        $data=[
+            'success'=>true,
+            'message'=>'Exito, tu producto se actualizó correctamente',
+        ];
+
+        return redirect()->back()->with($data);
+        
     }
 
     /**

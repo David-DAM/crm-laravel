@@ -26,6 +26,7 @@
                     <th scope="col">Descripción</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Imagen</th>
+                    <th scope="col">Categoria</th>
                     <th scope="col">Acciones</th>
                 </thead>
                 <tbody>
@@ -37,6 +38,7 @@
                             <td>
                                 <img src="{{ asset('images/'.$product->image) }}" width="50" class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="{{$product->name}}">
                             </td>
+                            <td>{{$product->category->name}}</td>
                             <td>
                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{$product->id}}">Eliminar</button>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">Editar</button>

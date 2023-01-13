@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -49,5 +50,15 @@ Route::middleware('auth')->prefix('/web')->group(function(){
     ->name('destroy','web.products.destroy')
     ->name('store','web.products.store')
     ->name('update','web.products.update');
+
+    Route::resource('orders',OrderController::class)
+    ->name('index','web.orders.index')
+    ->name('destroy','web.orders.destroy')
+    ->name('create','web.orders.create')
+    ->name('store','web.orders.store')
+    ->name('update','web.orders.update')
+    ->name('sendEmail','web.orders.sendEmail');
+
+    Route::post('oders/sendEmail/{id}',[OrderController::class,'sendEmail'])->name('web.orders.sendEmail');
 
 });
